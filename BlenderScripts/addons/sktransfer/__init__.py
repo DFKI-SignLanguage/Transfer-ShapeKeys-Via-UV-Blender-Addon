@@ -36,12 +36,12 @@ class OBJECT_OT_transfer_shapekey_via_uv(Operator):
                     "Increase this size if you have a high density of pixels in the UV and see distortions in the transferred ShapeKey."
     )
 
-    relative_to_normals: BoolProperty(
-        name="relative_to_normals",
-        default=False,
-        description="If True, vertex offsets will be considered as relative to the vertex normals,"
-                    " otherwise, each offset is in object space."
-    )
+    #relative_to_normals: BoolProperty(
+    #    name="relative_to_normals",
+    #    default=False,
+    #    description="If True, vertex offsets will be considered as relative to the vertex normals,"
+    #                " otherwise, each offset is in object space."
+    #)
 
     save_debug_images: BoolProperty(
         name="save_debug_images",
