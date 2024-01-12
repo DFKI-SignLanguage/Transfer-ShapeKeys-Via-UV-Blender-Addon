@@ -1,7 +1,11 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 bl_info = {
     "name": "Transfer ShapeKeys via UV map",
     "author": "Fabrizio Nunnari",
-    "version": (1, 0),
+    "version": (0, 1, 0),
     "blender": (3, 6, 0),
     "location": "View3D > Object > Transfer ShapeKey via UV",
     "description": "Transfers a ShapeKey from one object to another given they use UV maps that can show correctly the same texture",
