@@ -3,15 +3,15 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 bl_info = {
-    "name": "Transfer ShapeKeys via UV map",
+    "name": "Transfer ShapeKeys via UV maps",
     "author": "Fabrizio Nunnari",
-    "version": (0, 1, 0),
+    "version": (0, 1),
     "blender": (3, 6, 0),
-    "location": "View3D > Object > Transfer ShapeKey via UV",
+    "location": "Search > Transfer ShapeKey via UV",
     "description": "Transfers a ShapeKey from one object to another given they use UV maps that can show correctly the same texture",
     "warning": "",
-    "doc_url": "",
-    "category": "Add Mesh",
+    "doc_url": "https://github.com/DFKI-SignLanguage/Transfer-ShapeKeys-Via-UV-Blender-Addon",
+    "category": "Object",
 }
 
 
@@ -142,32 +142,12 @@ class OBJECT_OT_transfer_shapekey_via_uv(Operator):
 #
 # Registration
 
-#def add_object_button(self, context):
-#    self.layout.operator(
-#        OBJECT_OT_transfer_shapekey_via_uv.bl_idname,
-#        text="Add Object",
-#        icon='PLUGIN')
-
-
-# This allows you to right click on a button and link to documentation
-#def add_object_manual_map():
-#    url_manual_prefix = "https://github.com/DFKI-SignLanguage/Transfer-ShapeKeys-Via-UV-Blender-Addon/"
-#    url_manual_mapping = (
-#        ("bpy.ops.object.transfer_shapekey_via_uv", "manual.html"),
-#    )
-#    return url_manual_prefix, url_manual_mapping
-
-
 def register():
     bpy.utils.register_class(OBJECT_OT_transfer_shapekey_via_uv)
-    # bpy.utils.register_manual_map(add_object_manual_map)
-    # bpy.types.VIEW3D_MT_mesh_add.append(add_object_button)
 
 
 def unregister():
     bpy.utils.unregister_class(OBJECT_OT_transfer_shapekey_via_uv)
-    # bpy.utils.unregister_manual_map(add_object_manual_map)
-    # bpy.types.VIEW3D_MT_mesh_add.remove(add_object_button)
 
 
 #
