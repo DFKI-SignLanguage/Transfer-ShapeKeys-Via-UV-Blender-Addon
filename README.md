@@ -10,24 +10,8 @@ With respect to the integrated Blender method, based on triangle search in the p
 
 ## Installation
 
-For users:
 * Download a zip release (`sktransfer-x.y.zip`)
 * Install the zip through the Menu `Edit -> Preferences ...` and the `Add-ons` tab.
-
-For developers (Option 1):
-
-* Clone this repository
-* Open a Terminal
-* Set env variable: `export BLENDER_USER_SCRIPTS="path/to/Transfer-ShapeKeys-Via-UV-Blender-Addon/BlenderScripts"`
-* Run Blender: `path/to/blender.app/Contents/MacOS/blender`
-
-For developers (Option 2):
-
-* Clone this repository
-* Menu `Edit -> Preferences ...`
-* Tab `File Paths`
-* Panel `Script Directories`
-* Add directory `Transfer-ShapeKeys-Via-UV-Blender-Addon/BlenderScripts`
 
 ## Usage
 
@@ -99,11 +83,37 @@ For this case, I edited the UV of the monkey and tried to match the texture retu
 * [0.1] - 2024-01-13
   * First public release
 
+## For Developers
+
+### Running from repository code
+
+Option 1:
+
+* Clone this repository
+* Open a Terminal
+* Set env variable: `export BLENDER_USER_SCRIPTS="path/to/Transfer-ShapeKeys-Via-UV-Blender-Addon/BlenderScripts"`
+* Run Blender: `path/to/blender.app/Contents/MacOS/blender`
+
+Option 2:
+
+* Clone this repository
+* Menu `Edit -> Preferences ...`
+* Tab `File Paths`
+* Panel `Script Directories`
+* Add directory `Transfer-ShapeKeys-Via-UV-Blender-Addon/BlenderScripts`
+
+
+### Creating a release
+
+    cd BlenderScripts/addons
+    zip -r sktransfer-x.y.zip sktransfer -x "**/.DS_Store" "**/__pycache__/*"
+
 ## TODOs
 
 * Fill corners of the transfer buffer
 * Panel and buttons
 * A scaling parameter to modulate delta transfer
+* Compute and apply deltas relatively to vertex normals
 * Move the visual debug as addon option rather than operator parameter
 
 ## Visual debugging
