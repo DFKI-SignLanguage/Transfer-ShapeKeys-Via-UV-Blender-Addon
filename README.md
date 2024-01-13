@@ -45,7 +45,7 @@ The ShapeKeys are displacing segments outward the sphere centers.
 
 <table>
 <tr><th></th><th>Source</th><th>Destination</th></tr>
-<tr><td>Original</td><td><img src="Pics/Earth-Source-Basis.png" alt="Earth-Source-Basis"></td><td><img src="Pics/Earth-Destination-Basis.png" alt="Earth-Destination-Basis"></td></tr>
+<tr><td>Basis</td><td><img src="Pics/Earth-Source-Basis.png" alt="Earth-Source-Basis"></td><td><img src="Pics/Earth-Destination-Basis.png" alt="Earth-Destination-Basis"></td></tr>
 <tr><td>UVs</td><td><img src="Pics/Earth-Source-UV.png" alt="Earth-Source-UV"></td><td><img src="Pics/Earth-Destination-UV.png" alt="Earth-Destination-UV"></td></tr>
 <tr><td>ShapeKey: NorthPole</td><td><img src="Pics/Earth-Source-NorthPole.png" alt="Earth-Source-NorthPole"></td><td><img src="Pics/Earth-Destination-NorthPole.png" alt="Earth-Destination-NorthPole"></td></tr>
 <tr><td>ShapeKey: WaterUp</td><td><img src="Pics/Earth-Source-WaterUp.png" alt="Earth-Source-WaterUp"></td><td><img src="Pics/Earth-Destination-WaterUp.png" alt="Earth-Destination-WaterUp"></td></tr>
@@ -57,7 +57,7 @@ The Source is the default Suzanne. The destination is a Suzanne after some scali
 
 <table>
 <tr><th></th><th>Source</th><th>Destination</th></tr>
-<tr><td>Original</td><td><img src="Pics/Monkey-Source-Basis.png" alt="Monkey-Source-Basis"></td><td><img src="Pics/Monkey-Destination-Basis.png" alt="Monkey-Destination-Basis"></td></tr>
+<tr><td>Basis</td><td><img src="Pics/Monkey-Source-Basis.png" alt="Monkey-Source-Basis"></td><td><img src="Pics/Monkey-Destination-Basis.png" alt="Monkey-Destination-Basis"></td></tr>
 <tr><td>UVs</td><td><img src="Pics/Monkey-Source-UV.png" alt="Monkey-Source-UV"></td><td><img src="Pics/Monkey-Destination-UV.png" alt="Monkey-Destination-UV"></td></tr>
 <tr><td>ShapeKey: BigEars</td><td><img src="Pics/Monkey-Source-BigEars.png" alt="Monkey-Source-BigEars"></td><td><img src="Pics/Monkey-Destination-BigEars.png" alt="Monkey-Destination-BigEars"></td></tr>
 <tr><td>ShapeKey: BrowsUp</td><td><img src="Pics/Monkey-Source-BrowsUp.png" alt="Monkey-Source-BrowsUp"></td><td><img src="Pics/Monkey-Destination-BrowsUp.png" alt="Monkey-Destination-BrowsUp"></td></tr>
@@ -72,7 +72,7 @@ For this case, I edited the UV of the monkey and tried to match the texture retu
 
 <table>
 <tr><th></th><th>Source</th><th>Destination</th></tr>
-<tr><td>Original</td><td><img src="Pics/FLAME-Source-Basis.png" alt="FLAME-Source-Basis"></td><td><img src="Pics/FLAME-Destination-Basis.png" alt="FLAME-Destination-Basis"></td></tr>
+<tr><td>Basis</td><td><img src="Pics/FLAME-Source-Basis.png" alt="FLAME-Source-Basis"></td><td><img src="Pics/FLAME-Destination-Basis.png" alt="FLAME-Destination-Basis"></td></tr>
 <tr><td>UVs</td><td><img src="Pics/FLAME-Source-UV.png" alt="FLAME-Source-UV"></td><td><img src="Pics/FLAME-Destination-UV.png" alt="FLAME-Destination-UV">It's a mess! I focused mainly on the mouth.</td></tr>
 <tr><td>ShapeKey: Smile</td><td><img src="Pics/FLAME-Source-Smile.png" alt="FLAME-Source-Smile"></td><td><img src="Pics/FLAME-Destination-Smile.png" alt="FLAME-Destination-Smile"></td></tr>
 </table>
@@ -82,6 +82,16 @@ For this case, I edited the UV of the monkey and tried to match the texture retu
 
 * [0.1] - 2024-01-13
   * First public release
+
+
+## TODOs
+
+* Fill corners of the transfer buffer
+* Panel and buttons
+* A scaling parameter to modulate delta transfer
+* Compute and apply deltas relatively to vertex normals
+* Move the visual debug as addon option rather than operator parameter
+
 
 ## For Developers
 
@@ -108,13 +118,6 @@ Option 2:
     cd BlenderScripts/addons
     zip -r sktransfer-x.y.zip sktransfer -x "**/.DS_Store" "**/__pycache__/*"
 
-## TODOs
-
-* Fill corners of the transfer buffer
-* Panel and buttons
-* A scaling parameter to modulate delta transfer
-* Compute and apply deltas relatively to vertex normals
-* Move the visual debug as addon option rather than operator parameter
 
 ## Visual debugging
 
