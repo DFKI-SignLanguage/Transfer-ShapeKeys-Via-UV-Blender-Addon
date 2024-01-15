@@ -70,7 +70,7 @@ The Source is the default Suzanne. The destination is a Suzanne after some scali
 
 ### ShapeKey transfer between a Human head and a Monkey.
 
-The source object is actually a FLAME model, automatically generated and textured. The destination is again Suzanne.
+The source object is actually a [FLAME](https://github.com/TimoBolkart/FLAME-Blender-Add-on) model, automatically generated and textured. The destination is again Suzanne.
 
 For this case, I edited the UV of the monkey and tried to match the texture returned by FLAME. Given the strong difference in the two models, I couldn't get anything useful on the upper part of the face, but I focussed on the mouth and the addon was able to transfer a smile. 
 
@@ -143,4 +143,4 @@ If the operator parameter `save_debug_images` is set to True, three images will 
 
 * The `delaunay` module for triangularization is distributed under the MIT license (see `LICENSE-delaunay.txt`) and was originally retreieved from <https://github.com/mkirc/delaunay>. Many thanks to [mkirc](https://github.com/mkirc) for the bug fixes!
 * Triangle filling routines were inspired by this page: <http://www.sunshine2k.de/coding/java/TriangleRasterization/TriangleRasterization.html>
-  * My version includes vertex color interpolation
+  * My version includes vertex value interpolation
