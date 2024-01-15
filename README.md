@@ -15,18 +15,22 @@ With respect to the integrated Blender method, based on triangle search in the p
 
 ## Usage
 
-All in Object mode:
 
-* Identify a Source object, with a ShapeKey to transfer, and a Destination object
-* Make sure they both have active UV layers able to show the same texture correctly
-  * Actually, during transfer, a texture is not really needed. It is just for the user to check if the UVs are comparable.
-* Select the Source object
-* Select the ShapeKey to transfer
-* shift+Click on the Destination object
-* F3 (search) `Transfer ShapeKey via UV`
-  * or, from the Python console `bpy.ops.object.transfer_shapekey_via_uv()`
+Transferring a ShapeKey from a Source to a Destination object works if both have active UV layers able to show the same texture correctly.
 
-Done. The Destination object should have a new ShapeKey in the list.
+In Object mode:
+
+* Select (`click`) the Source object
+* Select (`click`) the ShapeKey to transfer
+* Add to selection (`shift+Click`) the Destination object
+* Search (`F3`) `Transfer ShapeKey via UV`
+  * or, from the Python console: `bpy.ops.object.transfer_shapekey_via_uv()`
+
+
+Done. The Destination object should have a new ShapeKey with the same name of the source one.
+
+Actually, during transfer, a texture is not really needed. It is just for the user to check if the UVs are comparable.
+
 
 Parameters:
 
