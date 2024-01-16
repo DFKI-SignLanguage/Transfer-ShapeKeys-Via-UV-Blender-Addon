@@ -17,9 +17,6 @@ With respect to the integrated Blender method, based on triangle search in the p
 
 A short video tutorial can be found here: https://www.youtube.com/watch?v=DAWjtayuwE0
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/DAWjtayuwE0?si=nSwuMS8v8zu-X0-C" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-
 Transferring a ShapeKey from a Source to a Destination object works if both have active UV layers able to show the same texture correctly.
 
 In Object mode:
