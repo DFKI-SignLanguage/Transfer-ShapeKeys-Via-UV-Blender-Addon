@@ -15,6 +15,10 @@ With respect to the integrated Blender method, based on triangle search in the p
 
 ## Usage
 
+A short video tutorial can be found here: https://www.youtube.com/watch?v=DAWjtayuwE0
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/DAWjtayuwE0?si=nSwuMS8v8zu-X0-C" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 
 Transferring a ShapeKey from a Source to a Destination object works if both have active UV layers able to show the same texture correctly.
 
@@ -140,6 +144,11 @@ If the operator parameter `save_debug_images` is set to True, three images will 
   * The delta buffer after triangulation and interpolated triangle filling.
 
 ## Credits and Links
+
+* The project has been developed at the [Affective Computing group](https://affective.dfki.de) of the [German Research Center for Artificial Intelligence (DFKI)](https://www.dfki.de/)
+* The development was funded by the following research projects:
+  * [SocialWear](https://affective.dfki.de/socialwear-bmbf-2020-2024/) (BMBF, cost action 22132)
+  * [BIGEKO](https://www.interaktive-technologien.de/projekte/bigeko) (BMBF, grant number 16SV9093)
 
 * The `delaunay` module for triangularization is distributed under the MIT license (see `LICENSE-delaunay.txt`) and was originally retreieved from <https://github.com/mkirc/delaunay>. Many thanks to [mkirc](https://github.com/mkirc) for the bug fixes!
 * Triangle filling routines were inspired by this page: <http://www.sunshine2k.de/coding/java/TriangleRasterization/TriangleRasterization.html>
