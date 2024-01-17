@@ -124,7 +124,7 @@ Option 2:
     zip -r sktransfer-x.y.zip sktransfer -x "**/.DS_Store" "**/__pycache__/*"
 
 
-## Visual debugging
+### Visual debugging
 
 WARNING: if you use the `save_debug_images` option, the PIL module (`pip install pillow`) must be installed in the Blender internal Python interpreter.
 
