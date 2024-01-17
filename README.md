@@ -83,6 +83,21 @@ For this case, I edited the UV of the monkey and tried to match the texture retu
 </table>
 
 
+### ShapeKey transfer between EMOCA-generated FLAME models.
+
+The source object is actually a [FLAME](https://github.com/TimoBolkart/FLAME-Blender-Add-on) model, automatically generated and textured.
+The destination is a FLAME model (but without ShapeKeys) generated via the [EMOCA](https://github.com/radekd91/emoca/) framework (3D mesh is automatically generated from video analysis).
+
+For this case, the UV maps are already perfectly compatible.
+
+<table>
+<tr><th></th><th>Source</th><th>Destination</th></tr>
+<tr><td>Basis</td><td><img src="Pics/EMOCA-Source-Basis.png" alt="EMOCA-Source-Basis"></td><td><img src="Pics/EMOCA-Destination-Basis.png" alt="EMOCA-Destination-Basis"></td></tr>
+<tr><td>UVs</td><td><img src="Pics/EMOCA-Source-UV.png" alt="EMOCA-Source-UV"></td><td><img src="Pics/EMOCA-Destination-UV.png" alt="EMOCA-Destination-UV"></td></tr>
+<tr><td>ShapeKey: Exp1</td><td><img src="Pics/EMOCA-Source-Exp1.png" alt="EMOCA-Source-Exp1"></td><td><img src="Pics/EMOCA-Destination-Exp1.png" alt="EMOCA-Destination-Exp1"></td></tr>
+</table>
+
+
 ## ChangeLog
 
 * [0.1] - 2024-01-13
