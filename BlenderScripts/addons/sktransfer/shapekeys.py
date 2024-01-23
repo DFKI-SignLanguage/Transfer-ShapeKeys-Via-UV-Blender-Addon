@@ -3,7 +3,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import bpy
-from mathutils import Vector
+from mathutils import Vector, Quaternion
 
 import numpy as np
 
@@ -16,7 +16,43 @@ from sktransfer.delaunay.delaunay import delaunay
 from typing import Tuple
 
 
-def export_shapekey_info(mesh: bpy.types.Mesh, shape_key_idx: int, uv_layer_idx: int, resolution: Tuple[int, int] = (256, 256)) -> np.ndarray:
+def _quaternion_between(v1: Vector, v2: Vector) -> Quaternion:
+    """
+    Computes the Quaternion aligning the direction of v1 to v2
+    :param v1:
+    :param v2:
+    :return: The Quaternion that can rotate v1 to v2
+    """
+
+    # From https://stackoverflow.com/questions/1171849/finding-quaternion-representing-the-rotation-from-one-vector-to-another
+    # One can rotate a vector u to vector v with
+    #
+    # function fromVectors(u, v) {
+    #
+    #   d = dot(u, v)
+    #   w = cross(u, v)
+    #
+    #   return Quaternion(d + sqrt(d * d + dot(w, w)), w).normalize()
+    # }
+    # If it is known that the vectors u to vector v are unit vectors, the function reduces to
+    #
+    # function fromUnitVectors(u, v) {
+    #   return Quaternion(1 + dot(u, v), cross(u, v)).normalize()
+    # }
+
+    v1n = v1.normalized()
+    v2n = v2.normalized()
+
+    d = v1n.dot(v2n)
+    w = v1n.cross(v2n)
+
+    out = Quaternion((1 + d, *w)).normalized()
+
+    return out
+
+
+def export_shapekey_info(mesh: bpy.types.Mesh, shape_key_idx: int, uv_layer_idx: int,
+                         resolution: Tuple[int, int] = (256, 256), use_normals: bool = False) -> np.ndarray:
     """
     Given a mesh, a ShapeKey index and a UV layer, uses the UV vertex coordinates to produce a 3D map storing the offset of each vertex with respect to the base ShapeKey.
     The function returns a "ShapeKey Info" 4D array storing the ShapeKey offset and a counter info.
@@ -75,6 +111,13 @@ def export_shapekey_info(mesh: bpy.types.Mesh, shape_key_idx: int, uv_layer_idx:
             delta = sk_vertex_coords - sk_base_vertex_coords
             # print(sk_vertex_coords, sk_base_vertex_coords, delta)
 
+            # Convert the delta into a vector relative to the vertex normal
+            if use_normals:
+                v_normal = mesh.vertices[v_idx].normal
+                canonical_normal = Vector((0, 1, 0))
+                rot_to_canonical = _quaternion_between(v_normal, canonical_normal)
+                delta = rot_to_canonical @ delta
+
             # Accumulate the delta into the output picture
             if out[out_y, out_x, 3] == 0.0:
                 out[out_y, out_x, :] = delta.x, delta.y, delta.z, 1
@@ -88,7 +131,10 @@ def export_shapekey_info(mesh: bpy.types.Mesh, shape_key_idx: int, uv_layer_idx:
     return out
 
 
-def create_shapekey(obj: bpy.types.Object, uv_layer_idx: int, xyz_map: np.ndarray, src_sk: str) -> None:
+def create_shapekey(obj: bpy.types.Object, uv_layer_idx: int, xyz_map: np.ndarray, src_sk: bpy.types.ShapeKey,
+                    use_normals: bool = False) -> None:
+    """Analyses the xyz delta map and creates a new ShapeKey onto the specified object using the specified
+    UV layer. The reference to the source ShapeKey is used to copy name and other parameters."""
 
     if obj.type != 'MESH':
         raise Exception("obj must be of type MESH")
@@ -132,6 +178,13 @@ def create_shapekey(obj: bpy.types.Object, uv_layer_idx: int, xyz_map: np.ndarra
             # Take the delta from the map
             delta = Vector(xyz_map[uv_y, uv_x])
             # print(f"For poly {poly.index} coords {uv_x},{uv_y} --> delta {delta}")
+
+            # Convert the delta into a vector relative to the vertex normal
+            if use_normals:
+                v_normal = mesh.vertices[v_idx].normal
+                canonical_normal = Vector((0, 1, 0))
+                rot_to_canonical = _quaternion_between(v_normal, canonical_normal)
+                delta = rot_to_canonical.inverted() @ delta
 
             # Adds the delta to the vertex position in the reference ShapeKey
             reference_coords: Vector = reference_shape_key.data[v_idx].co
@@ -180,21 +233,23 @@ def _save_buffer_as_image(buffer: np.ndarray, save_name: str) -> None:
 def transfer_shapekey_via_uv(src_obj: bpy.types.Object, src_sk_idx: int, src_uv_idx: int,
                              dst_obj: bpy.types.Object, dst_uv_idx: int,
                              resolution: Tuple[int, int],
+                             use_normals: bool = False,
                              save_debug_images: bool = False) -> None:
     """
     The main function that: i) retrieves the ShapeKey deltas from the source mesh,
      ii) triangulates the delta points and fills the gaps between the points, and
      iii) creates the ShapeKey on the destination object.
 
-    :param src_obj:
-    :param src_sk_idx:
-    :param src_uv_idx:
-    :param dst_obj:
-    :param dst_uv_idx:
-    :param resolution:
-    :param save_debug_images: If True, the intermediate buffers (counts, deltas and triangulates deltas)
+    :param src_obj: The source object, containing ShapeKeys and UV layers
+    :param src_sk_idx: The index of the ShapeKey to copy
+    :param src_uv_idx: The index of the UV layer to be used for creating the delta map
+    :param dst_obj: The destination object on which a new ShapeKey will be created
+    :param dst_uv_idx: The UV layer of the destination object that should be used to find locations on the delta map
+    :param resolution: The resolution of the intermediate delta map
+    :param use_normals: If True, the vertex deltas will be saved and loaded as relative to the vertex normal
+    :param save_debug_images: If True, the intermediate buffers (counts, deltas, and triangulates deltas)
      will be saved as PNG images for visual debugging.
-    :return:
+    :return: Nothing
     """
 
     map_width, map_height = resolution
@@ -205,6 +260,7 @@ def transfer_shapekey_via_uv(src_obj: bpy.types.Object, src_sk_idx: int, src_uv_
     #
     # Extract ShapeKey info
     sk_info = export_shapekey_info(mesh=src_mesh, shape_key_idx=src_sk_idx, uv_layer_idx=src_uv_idx,
+                                   use_normals=use_normals,
                                    resolution=resolution)
 
     # Convert counts ShapeKey Info into a grey image and save
@@ -263,4 +319,5 @@ def transfer_shapekey_via_uv(src_obj: bpy.types.Object, src_sk_idx: int, src_uv_
     #
     # Rebuild the ShapeKey on the destination object
     print(f"Creating ShapeKey '{src_active_sk.name}' on object '{dst_obj.name}' using UV layer {dst_uv_idx} ...")
-    create_shapekey(obj=dst_obj, uv_layer_idx=dst_uv_idx, xyz_map=filled_xyz_map, src_sk=src_active_sk)
+    create_shapekey(obj=dst_obj, uv_layer_idx=dst_uv_idx, xyz_map=filled_xyz_map, src_sk=src_active_sk,
+                    use_normals=use_normals)
