@@ -100,8 +100,12 @@ For this case, the UV maps are already perfectly compatible.
 
 ## ChangeLog
 
+* [0.2] - 2024-01-23
+  * Optionally, ShapeKey deltas are computed relatively to vertex normals.
+
 * [0.1] - 2024-01-13
   * First public release
+
 
 
 ## TODOs
@@ -109,7 +113,6 @@ For this case, the UV maps are already perfectly compatible.
 * Fill corners of the transfer buffer
 * Panel and buttons
 * A scaling parameter to modulate delta transfer
-* Compute and apply deltas relatively to vertex normals
 * Move the visual debug as addon option rather than operator parameter
 
 
