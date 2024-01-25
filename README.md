@@ -36,6 +36,7 @@ Actually, during transfer, a texture is not really needed. It is just for the us
 Parameters:
 
 * `buffer_size` (int) is the size of the intermediate buffer used to store ShapeKey deltas. By default it is set at 256. Increase it if you have a very dense topology and you notice bad transfer in areas with many close pixels.
+* `relative_to_normals` (bool) if True, the ShapyKey offsets will be computed and applied relatively to the normals. Otherwise, by default, vertices offset is simply copied in mesh coordinate space.
 * `save_debug_images` (bool) if True activates the creation of PNG images for visual debug (see later section).
 
 ## Examples
